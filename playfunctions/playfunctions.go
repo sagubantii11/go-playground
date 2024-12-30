@@ -4,7 +4,7 @@ import "fmt"
 
 type fInt func(int) int
 
-func playfunctions() {
+func PlayFunctions() {
 	// Working with Anonymous Functions
 	numbers := []int{1, 2, 3, 4, 5}
 	doubled := transformNumbers(&numbers, func(num int) int { return num * 2 })
@@ -13,7 +13,7 @@ func playfunctions() {
 	fmt.Println("Tripled: ", tripled)
 	squared := transformNumbers(&numbers, func(num int) int { return num * num })
 	fmt.Println("Squared: ", squared)
-	
+
 	fmt.Println("Doubled again: ", transformNumbers(&doubled, createFunc(2))) // Usage of a function factory
 }
 
