@@ -10,6 +10,7 @@ type Product struct {
 
 func main() {
 	// Working with arrays
+	// Empty array => hobbies := []string{}
 	hobbies := []string{"Music", "Coding", "Gaming"}
 	fmt.Println(hobbies)
 	// Playing with slices
@@ -32,10 +33,20 @@ func main() {
 			price: 200.00,
 		},
 	}
-	products = append(products, Product{
+	thirdProduct := Product{
 		id:    3,
 		title: "Product 3",
 		price: 300.00,
-	})
+	}
+	products = append(products, thirdProduct)
 	fmt.Println(products)
+
+	// Working with maps
+	// Empty map => person := map[string]string{}
+	person := map[string]string{
+		"first_name": "John",
+		"last_name":  "Doe",
+		"email_id":   "john_doe@gmail.com",
+	}
+	fmt.Println(person)
 }
