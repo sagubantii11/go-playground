@@ -13,6 +13,8 @@ func main() {
 	fmt.Println("Tripled: ", tripled)
 	squared := transformNumbers(&numbers, func(num int) int { return num * num })
 	fmt.Println("Squared: ", squared)
+	
+	fmt.Println("Doubled again: ", transformNumbers(&doubled, createFunc(2))) // Usage of a function factory
 }
 
 func transformNumbers(num *[]int, transform fInt) []int {
@@ -21,6 +23,12 @@ func transformNumbers(num *[]int, transform fInt) []int {
 		dNum = append(dNum, transform(v))
 	}
 	return dNum
+}
+
+func createFunc(factor int) fInt {
+	return func(num int) int {
+		return num * factor
+	}
 }
 
 // func double(num int) int {
