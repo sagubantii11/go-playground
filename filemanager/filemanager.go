@@ -53,23 +53,8 @@ func (fm FileManager) WriteJsonToFile(data interface{}) error {
 	err = json.NewEncoder(file).Encode(data)
 
 	if err != nil {
-		file.Close()
 		return errors.New("error encoding data to JSON")
 	}
-
-	// jsonData, err := json.Marshal(data)
-	// if err != nil {
-	// 	file.Close()
-	// 	return errors.New("error marshaling data to JSON")
-	// }
-
-	// _, err = file.Write(jsonData)
-
-	// if err != nil {
-	// 	file.Close()
-	// 	return errors.New("error writing to file")
-	// }
-
 	defer file.Close()
 
 	return nil
