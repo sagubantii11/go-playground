@@ -2,6 +2,7 @@ package prices
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/sagubantii11/go-playground/conversion"
 	"github.com/sagubantii11/go-playground/filemanager"
@@ -39,10 +40,12 @@ func (job *TaxIncludedPricesJob) LoadPrices() {
 	job.InputPrices = prices
 }
 
-func (job *TaxIncludedPricesJob) Process() {
+func (job *TaxIncludedPricesJob) Process(chanl chan bool, errChan chan error) {
 	job.LoadPrices() // Load prices from file
 
 	result := make(map[string]float64)
+
+	time.Sleep(5 * time.Second) // Simulate a long running process
 
 	for _, price := range job.InputPrices {
 		result[fmt.Sprintf("%.2f", price)] = price * (1 + job.TaxRate)
@@ -53,6 +56,9 @@ func (job *TaxIncludedPricesJob) Process() {
 	err := job.IOFManager.WriteJsonToFile(job)
 	if err != nil {
 		fmt.Println(err)
+		errChan <- err
 		return
 	}
+
+	chanl <- true
 }
