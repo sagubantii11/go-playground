@@ -4,3 +4,7 @@ This repository is where I play with Go Language by experimenting with different
 ## Commands used in the terminal for execution
 - `git mod init github.com/sagubantii11/go-playground`
 - `git run .`
+
+### Setup the server using GIN
+Referemce: ((https://github.com/gin-gonic/gin))
+- `go get -u github.com/gin-gonic/gin`
