@@ -5,9 +5,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/sagubantii11/go-playground/models"
+	"github.com/sagubantii11/go-playground/sqldb"
 )
 
 func main() {
+	sqldb.InitDB()
 	server := gin.Default()
 	server.GET("/ping", ping)
 	server.GET("/events", getAllEvents)
