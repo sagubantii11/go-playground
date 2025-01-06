@@ -42,7 +42,7 @@ func rowsToEvents(rows *sql.Rows) []Event {
 	return events
 }
 
-func AddEvent(event Event) {
+func AddEvent(event Event) Event {
 	insertSQLStatement := `
 	INSERT INTO events (title, description, venue, created_by, date_time)
 	VALUES (?, ?, ?, ?, ?)
@@ -52,4 +52,5 @@ func AddEvent(event Event) {
 		panic(err)
 	}
 	event.ID = id
+	return event
 }
