@@ -7,7 +7,7 @@ func ExecuteSelect(query string, args ...interface{}) (*sql.Rows, error) {
 	if err != nil {
 		return nil, err
 	}
-
+	defer rows.Close()
 	return rows, nil
 }
 
