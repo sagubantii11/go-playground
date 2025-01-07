@@ -1,17 +1,16 @@
 package main
 
 import (
-  "net/http"
-
-  "github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin"
+	"github.com/sagubantii11/go-playground/routes"
+	"github.com/sagubantii11/go-playground/sqldb"
 )
 
 func main() {
-  server := gin.Default()
-  server.GET("/ping", func(c *gin.Context) {
-    c.JSON(http.StatusOK, gin.H{
-      "message": "pong",
-    })
-  })
-  server.Run(":8081") // listen and serve on localhost:8081 (for windows "localhost:8080")
+	sqldb.InitDB()
+	server := gin.Default()
+	
+	routes.RegisterRoutes(server)
+
+	server.Run(":8081") // listen and serve on localhost:8081 (for windows "localhost:8080")
 }

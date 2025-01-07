@@ -1,0 +1,10 @@
+POST http://localhost:8081/events/add
+content-type application/json
+
+{
+  "title": "Testing event add 1",
+  "description": "No description required",
+  "venue": "Local",
+  "date_time": "2025-01-06T11:33:40.000Z",
+  "created_by": "Admin"
+}
