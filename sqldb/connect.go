@@ -21,19 +21,3 @@ func InitDB() {
 	createTables()
 }
 
-func createTables() {
-	createEventsTable := `
-	CREATE TABLE IF NOT EXISTS events (
-		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		title TEXT NOT NULL,
-		description TEXT NOT NULL,
-		venue TEXT NOT NULL,
-		created_by TEXT NOT NULL,
-		date_time DATETIME NOT NULL
-	);
-	`
-	_, err := DB.Exec(createEventsTable)
-	if err != nil {
-		panic(err)
-	}
-}

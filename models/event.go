@@ -13,7 +13,7 @@ type Event struct {
 	Description string    `json:"description" binding:"required"`
 	Venue       string    `json:"venue" binding:"required"`
 	Organizer   string    `json:"created_by" binding:"required"`
-	DateTime    time.Time `json:"date_time" binding:"required"`
+	DateTime    time.Time `json:"date_time"`
 }
 
 var events = []Event{}
@@ -42,7 +42,6 @@ func GetAllEvents() []Event {
 	return events
 }
 
-
 func GetEventByID(id int64) Event {
 	getQuery := `SELECT * FROM events WHERE id = ?;`
 	rows, err := sqldb.ExecuteSelect(getQuery, id)
@@ -59,10 +58,10 @@ func GetEventByID(id int64) Event {
 
 func AddEvent(event Event) Event {
 	insertSQLStatement := `
-	INSERT INTO events (title, description, venue, created_by, date_time)
-	VALUES (?, ?, ?, ?, ?);
+	INSERT INTO events (title, description, venue, date_time)
+	VALUES (?, ?, ?, ?);
 	`
-	id, err := sqldb.ExecuteInserts(insertSQLStatement, event.Title, event.Description, event.Venue, event.Organizer, event.DateTime)
+	id, err := sqldb.ExecuteInserts(insertSQLStatement, event.Title, event.Description, event.Venue, event.Organizer)
 	if err != nil {
 		panic(err)
 	}
@@ -73,10 +72,10 @@ func AddEvent(event Event) Event {
 func UpdateEventByID(id int64, event Event) Event {
 	updateSQLStatement := `
 	UPDATE events
-	SET title = ?, description = ?, venue = ?, created_by = ?, date_time = ?
+	SET title = ?, description = ?, venue = ?, date_time = ?
 	WHERE id = ?;
 	`
-	_, err := sqldb.ExecuteInserts(updateSQLStatement, event.Title, event.Description, event.Venue, event.Organizer, event.DateTime, id)
+	_, err := sqldb.ExecuteInserts(updateSQLStatement, event.Title, event.Description, event.Venue, event.Organizer, id)
 	if err != nil {
 		panic(err)
 	}
