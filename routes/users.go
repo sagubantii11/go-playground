@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/sagubantii11/go-playground/models"
+	"github.com/sagubantii11/go-playground/utils"
 )
 
 func addUser(c *gin.Context) {
@@ -37,8 +38,16 @@ func login(c *gin.Context) {
 			"message": "Login successful",
 		})
 	} else {
+		validJWT, err := utils.GenerateJWT(user.EmailID, user.Username)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"message": "Internal server error",
+			})
+			return
+		}
 		c.JSON(http.StatusUnauthorized, gin.H{
 			"message": "Invalid credentials",
+			"token":   validJWT,
 		})
 	}
 }
