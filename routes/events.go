@@ -6,7 +6,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/sagubantii11/go-playground/models"
-	"github.com/sagubantii11/go-playground/utils"
 )
 
 func ping(c *gin.Context) {
@@ -33,24 +32,8 @@ func getEventByID(c *gin.Context) {
 }
 
 func addEvent(c *gin.Context) {
-
-	authToken := c.Request.Header.Get("Authorization")
-	if authToken == "" {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"message": "Unauthorized access",
-		})
-		return
-	}
-	_, err := utils.VerifyJWT(authToken)
-	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"message": "Unauthorized access",
-		})
-		return
-	}
-
 	var event models.Event
-	err = c.ShouldBindJSON(&event)
+	err := c.ShouldBindJSON(&event)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "Invalid request",
@@ -65,21 +48,6 @@ func addEvent(c *gin.Context) {
 }
 
 func updateEventByID(c *gin.Context) {
-	authToken := c.Request.Header.Get("Authorization")
-	if authToken == "" {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"message": "Unauthorized access",
-		})
-		return
-	}
-	_, err := utils.VerifyJWT(authToken)
-	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"message": "Unauthorized access",
-		})
-		return
-	}
-	
 	parsedID := c.Param("id")
 	id, err := strconv.ParseInt(parsedID, 10, 64)
 	if err != nil {
@@ -101,21 +69,6 @@ func updateEventByID(c *gin.Context) {
 }
 
 func deleteEventByID(c *gin.Context) {
-	authToken := c.Request.Header.Get("Authorization")
-	if authToken == "" {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"message": "Unauthorized access",
-		})
-		return
-	}
-	_, err := utils.VerifyJWT(authToken)
-	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"message": "Unauthorized access",
-		})
-		return
-	}
-	
 	parsedID := c.Param("id")
 	id, err := strconv.ParseInt(parsedID, 10, 64)
 	if err != nil {
